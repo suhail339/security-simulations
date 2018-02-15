@@ -1,0 +1,424 @@
+﻿<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
+<head>
+    <title>Demo : Security Sim</title>
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="favicon.ico">
+    <!-- Web Fonts -->
+    <link href="assets/fonts.css" rel="stylesheet" />
+    <!-- CSS Global Compulsory -->
+    <link rel="stylesheet" href="assets/plugins/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link href="assets/jqueryUi.css" rel="stylesheet" />
+    <!--<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">-->
+    <link href="assets/easyButton.css" rel="stylesheet" />
+    <!-- CSS Header and Footer -->
+    <link rel="stylesheet" href="assets/css/headers/header-default.css">
+    <link rel="stylesheet" href="assets/css/footers/footer-v1.css">
+    <link href="assets/css/leaflet-drawsss.css" rel="stylesheet" />
+    <link href="assets/css/leaflet.measure.css" rel="stylesheet" />
+    <!-- CSS Implementing Plugins -->
+    <link href="assets/css/leaflet.css" rel="stylesheet" />
+    <!--<link rel="stylesheet" href="leaflet/dist/leaflet.css" />-->
+    <!--[if lte IE 8]><link rel="stylesheet" href="leaflet/dist/leaflet.ie.css" /><![endif]-->
+    <link rel="stylesheet" href="assets/leaflet.measure.css" />
+    <!--<link href="assets/css/Control.Nanomeasure.css" rel="stylesheet" />-->
+    <style>
+        .imageStyle {
+            width: 50px;
+            height: 50px;
+            background-color: #ff0000;
+        }
+    </style>
+    <link rel="stylesheet" href="assets/plugins/animate.css">
+    <link rel="stylesheet" href="assets/plugins/line-icons/line-icons.css">
+    <link rel="stylesheet" href="assets/plugins/font-awesome/css/font-awesome.min.css">
+    <!-- CSS Page Style -->
+    <link rel="stylesheet" href="assets/css/pages/pricing/pricing_v6.css">
+    <link rel="stylesheet" href="assets/css/pages/pricing/pricing_v7.css">
+    <link rel="stylesheet" href="assets/css/pages/pricing/pricing_v8.css">
+    <!-- CSS Customization -->
+    <link rel="stylesheet" href="assets/css/custom.css">
+</head>
+<body>
+    <div class="wrapper">
+        <!--=== Header ===-->
+        <div class="header" style="background-image:url(assets/img/bg.png);background-repeat:no-repeat;">
+            <!--=== End Header ===-->
+            <!--=== Breadcrumbs ===-->
+            <div class="breadcrumbs">
+                <div class="container">
+                    <h1 class="pull-left">Security Simulations</h1>
+                </div>
+            </div><!--/breadcrumbs-->
+            <!--=== End Breadcrumbs ===-->
+            <!--=== Content Part ===-->
+            <!-- Pricing Table-v6 -->
+            <div class="container content">
+                <div class="row margin-top-10 no-space-pricing-v6">
+                    <div class="col-md-12">
+                        <div id="map" style="height: 600px; width:1100px; display:none"></div>
+                        <!--<button id="removeLayer" class="btn btn-success" style="height: 40px; width: 150px; display: none;margin-top:5px;">Release Draw Events</button>-->
+                    </div>
+                </div>
+            </div>
+            <!-- End Pricing Table-v8 -->
+        </div><!--/container-->
+    </div>
+    <!--=== End Footer Version 1 ===-->
+    <!--=== End Footer Version 1 ===-->
+    <!-- JS Global Compulsory -->
+    <script type="text/javascript" src="assets/plugins/jquery/jquery.min.js"></script>
+    <!--<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>-->
+    <script src="assets/jqueryUi.js"></script>
+    <script type="text/javascript" src="assets/plugins/jquery/jquery-migrate.min.js"></script>
+    <script type="text/javascript" src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <!-- JS Implementing Plugins -->
+    <script src="assets/leaflet.js"></script>
+    <script src="assets/leaflet-src.js"></script>
+    <script src="assets/leaflet.draw-src.js"></script>
+     
+    <script src="assets/leaflet.measure.js"></script>
+    
+    <script src="assets/leaflet-geodesy.js"></script>
+    
+    <!--<script src="assets/leaflet.draw.js"></script>-->
+   
+    <!--<script src="../Scripts/MovingMarker.js"></script>-->
+    <script src="assets/easyButton.js"></script>
+    <script src="assets/leaflet.polylineDecorator.js"></script>
+
+    <script src="assets/leaflet.measure.js"></script>
+    <!--<script src="assets/marker.rotate.js"></script>-->
+    <script type="text/javascript" src="assets/plugins/back-to-top.js"></script>
+    <script type="text/javascript" src="assets/plugins/smoothScroll.js"></script>
+    <!-- JS Customization -->
+    <script type="text/javascript" src="assets/js/custom.js"></script>
+    <!-- JS Page Level -->
+    <script type="text/javascript" src="assets/js/app.js"></script>
+    <script type="text/javascript">
+        jQuery(document).ready(function () {
+            App.init();
+        });
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function LoadWorkPlace() {
+            $('#map').show();
+            L.PolylineDecorator.include(L.Mixin.Events);
+            var firstImage = prompt('Image ??? Enter 1');
+            $(function loadControls() {
+                $('#removeLayer').show();
+                //first function to run to take user input
+                //first function to run to take user input
+                var map = L.map('map', {
+                    minZoom: 1,
+                    maxZoom: 4,
+                    center: [0, 0],
+                    zoom: 0,
+                    crs: L.CRS.Simple
+                });
+
+                // dimensions of the image
+                var w = 4400,
+                    h = 2500
+                //url = 'BetaImages/'+firstImage+'.jpg';
+                //url = 'assets/img/isbimg.jpg';
+                // calculate the edges of the image, in coordinate space
+                var southWest = map.unproject([0, h], map.getMaxZoom() - 1);
+                var northEast = map.unproject([w, 0], map.getMaxZoom() - 1);
+                var bounds = new L.LatLngBounds(southWest, northEast);
+
+                // New layergroup, note it's not added to the map yet
+                var layerGroup = new L.LayerGroup(),
+                    imageOverlayUrl = 'BetaImages/' + firstImage + '.jpg',
+                    // New imageoverlay added to the layergroup
+                    imageOverlay = new L.ImageOverlay(imageOverlayUrl, bounds).addTo(layerGroup),
+                    // New featuregroup added to the layergroup
+                    featureGroup = new L.FeatureGroup().addTo(layerGroup);
+
+                //dynamic method for adding new layer
+                var layerGroupings = { "Main": layerGroup };
+                var layerControl = new L.control.layers(layerGroupings, null, { collapsed: false }).addTo(map);
+
+                var drawControl = new L.Control.Draw({
+                    edit: {
+                        featureGroup: featureGroup
+                    },
+                    draw: {
+                        polygon: {
+                            shapeOptions: {
+                                color: '#00FF00'
+                            }
+                        },
+                        polyline: true,
+                        rectangle: {
+                            shapeOptions: {
+                                color: '#0000FF'
+                            }
+                        },
+                        circle: false,
+                        marker: false
+                    }
+                }).addTo(map);
+                var markers = new L.FeatureGroup();
+                map.on('draw:created', showPolygonArea);
+                map.on('draw:edited', showPolygonAreaEdited);
+                // tell leaflet that the map is exactly as big as the image
+                map.setMaxBounds(bounds);
+
+                L.tileLayer({
+                    attribution: '<a href="http://smartminds.co">SmartMinds</a>',
+                    maxZoom: 18
+                }).addTo(map);
+
+                // Variable to hold the selected layergroup's featuregroup.
+                var currentFeatureGroup;
+                // Catch the layer change event
+                map.on('baselayerchange', function (layersControlEvent) {
+                    // Loop over the layers contained in the current group
+                    layersControlEvent.layer.eachLayer(function (layer) {
+                        // If it's the imageoverlay make sure it's in the background
+                        if (layer instanceof L.ImageOverlay) {
+                            layer.bringToBack();
+                            UnbindTheCustomControls();
+                            // If not then it's the featuregroup, reference with variable.
+                        } else {
+                            currentFeatureGroup = layer;
+                        }
+                    });
+                });
+
+                //stop mouse events
+                L.easyButton('<img src="assets/img/release.png" title="Disable All Controls">', function () {
+                    $('.leaflet-container').css('cursor', '');
+                    map.off('click', fencePlace1);
+                    map.off('click', fencePlace2);
+                    map.off('click', fencePlace3);
+                    map.off('click', wallPlace);
+                    map.off('click', gatePlace2);
+                }).addTo(map);
+
+                //remove Layers
+                L.easyButton('<img src="assets/img/delete.png" title="Clear All Drawings From Image">', function () {
+                    currentFeatureGroup.clearLayers();
+                    $('.leaflet-container').css('cursor', '');
+                }).addTo(map);
+
+                //gates
+               
+                var gate2Icon = L.icon({
+                    iconUrl: 'assets/img/gatepole.png',
+                    iconSize: [20, 30], // size of the icon
+                    iconAnchor: [5, 10], // point of the icon which will correspond to marker's location
+                });
+                L.easyButton('<img src="assets/img/gateicon.png" title="Place Gate">', function () {
+                    $('.leaflet-container').css('cursor', 'crosshair');
+                    map.off('click', fencePlace1);
+                    map.off('click', fencePlace2);
+                    map.off('click', fencePlace3);
+                    map.off('click', wallPlace);
+                    map.on('click', gatePlace2);
+                }).addTo(map);
+                // Add coordinate to the polyline
+                var polylineGate2 = new L.Polyline([], { color: 'yellow' });
+                function gatePlace2(e) {
+                    myCheck = "gate";
+                    // New marker on coordinate, add it to the map
+                    new L.Marker(e.latlng, { icon: gate2Icon, draggable: false }).addTo(currentFeatureGroup);
+                    // Add coordinate to the polyline
+                    polylineGate2.addLatLng(e.latlng).addTo(currentFeatureGroup);
+                    var decorator = L.polylineDecorator(polylineGate2, {
+                        patterns: [
+                            // define a pattern of 10px-wide dashes, repeated every 20px on the line
+                            { offset: 0,endOffset: 0, repeat: '11px', symbol: new L.Symbol.marker() }
+                        ]
+                    }).addTo(currentFeatureGroup);
+                    map.off('click', gatePlace2);
+                    polylineGate2 = new L.Polyline([], { color: 'pink' });
+                }
+                //fence intialization and creation
+                var fence2Icon = L.icon({
+                    iconUrl: 'assets/img/fencenetpole.png',
+                    iconSize: [10, 30], // size of the icon
+                    iconAnchor: [5, 18], // point of the icon which will correspond to marker's location
+                });
+
+                // Add coordinate to the polyline
+                var polylineFence2 = new L.Polyline([], { color: 'yellow' });
+                function fencePlace2(e) {
+                    myCheck = "fencenet";
+                    // New marker on coordinate, add it to the map
+                    new L.Marker(e.latlng, { icon: fence2Icon, draggable: false }).addTo(currentFeatureGroup);
+                    // Add coordinate to the polyline
+                    polylineFence2.addLatLng(e.latlng).addTo(currentFeatureGroup);
+                    var decorator = L.polylineDecorator(polylineFence2, {
+                        patterns: [
+                            // define a pattern of 10px-wide dashes, repeated every 20px on the line
+                            { offset: 0, repeat: '11px', symbol: new L.Symbol.marker() }
+                        ]
+                    }).addTo(currentFeatureGroup);
+                }
+
+                L.easyButton('<img src="assets/img/fenceneticon.png" title="Draw Net Fence">', function () {
+                    $('.leaflet-container').css('cursor', 'crosshair');
+                    map.off('click', fencePlace1);
+                    map.off('click', fencePlace3);
+                    map.off('click', wallPlace);
+                    map.on('click', fencePlace2);
+                    polylineFence2 = new L.Polyline([], { color: 'yellow' });
+                }).addTo(map);
+
+                //draw fence
+               
+                //fence intialization and creation
+                var fence3Icon = L.icon({
+                    iconUrl: 'assets/img/fencewirepole.png',
+                    iconSize: [10, 20], // size of the icon
+                    iconAnchor: [0, 10], // point of the icon which will correspond to marker's location
+                });
+
+                // Add coordinate to the polyline
+                var polylineFence3 = new L.Polyline([], { color: 'pink' });
+                function fencePlace3(e) {
+                    myCheck = "fencewire";
+                    // New marker on coordinate, add it to the map
+                    new L.Marker(e.latlng, { icon: fence3Icon, draggable: false }).addTo(currentFeatureGroup);
+                    // Add coordinate to the polyline
+                    polylineFence3.addLatLng(e.latlng).addTo(currentFeatureGroup);
+                    var decorator = L.polylineDecorator(polylineFence3, {
+                        patterns: [
+                            // define a pattern of 10px-wide dashes, repeated every 20px on the line
+                            { offset: 0, endOffset: 0, repeat: '12px', symbol: new L.Symbol.marker() }
+                        ]
+                    }).addTo(currentFeatureGroup);
+                    //$('#stopFence').click(function releaseFence() { map.off('click', fencePlace); });
+                }
+                //fence3
+                L.easyButton('<img src="assets/img/fencewireicon.png" title="Draw Wire Fence">', function () {
+                    $('.leaflet-container').css('cursor', 'crosshair');
+                    map.off('click', fencePlace1);
+                    map.off('click', fencePlace2);
+                    map.off('click', gatePlace2);
+                    map.off('click', wallPlace);
+                    map.on('click', fencePlace3);
+                    polylineFence3 = new L.Polyline([], { color: 'pink' });
+                }).addTo(map);
+                //fence
+                // Add coordinate to the polyline
+                var polylineFence1 = new L.Polyline([], { color: 'red' });
+                function fencePlace1(e) {
+                    myCheck = "fencecon";
+                    // Add coordinate to the polyline
+                    polylineFence1.addLatLng(e.latlng).addTo(currentFeatureGroup);
+                    var decorator = L.polylineDecorator(polylineFence1, {
+                        patterns: [
+                            // define a pattern of 10px-wide dashes, repeated every 20px on the line
+                            { offset: 5, repeat: '10px', symbol: new L.Symbol.marker() }
+                        ]
+                    }).addTo(currentFeatureGroup);
+                }
+                //fence1 button
+                L.easyButton('<img src="assets/img/fenceconicon.png" title="Draw Fence">', function () {
+                    $('.leaflet-container').css('cursor', 'crosshair');
+                    map.off('click', fencePlace2);
+                    map.off('click', fencePlace3);
+                    map.off('click', gatePlace2);
+                    map.off('click', wallPlace);
+                    map.on('click', fencePlace1);
+                    polylineFence1 = new L.Polyline([], { color: 'red' });
+                }).addTo(map);
+
+                //wall
+                L.easyButton('<img src="assets/img/wallicon.png" title="Draw Wall">', function () {
+                    $('.leaflet-container').css('cursor', 'crosshair');
+                    map.off('click', fencePlace1);
+                    map.off('click', fencePlace3);
+                    map.off('click', fencePlace2);
+                    map.off('click', gatePlace2);
+                    map.on('click', wallPlace);
+                    polylineWall = new L.Polyline([], { color: 'yellow' });
+                }).addTo(map);
+                //fence intialization and creation
+                //var wallIcon = L.icon({
+                //    iconUrl: 'assets/img/wallMarker.png',
+                //    iconSize: [30, 30], // size of the icon
+                //    iconAnchor: [5, 18], // point of the icon which will correspond to marker's location
+                //});
+                // Add coordinate to the polyline
+                var polylineWall = new L.Polyline([], { color: 'yellow' });
+                function wallPlace(e) {
+                    myCheck ="wall";
+                    // New marker on coordinate, add it to the map
+                    new L.Marker(e.latlng, {draggable: false }).addTo(currentFeatureGroup);
+                    polylineWall.addLatLng([e.latlng.lat,e.latlng.lng]).addTo(currentFeatureGroup);
+                    // Add coordinate to the polyline
+                    //polylineWall.addLatLng(e.latlng).addTo(currentFeatureGroup);
+                    var decorator = L.polylineDecorator(polylineWall, {
+                        patterns: [
+                            // define a pattern of 10px-wide dashes, repeated every 20px on the line
+                            { offset: 0, endOffset: 0, repeat: '10px', symbol: new L.Symbol.marker() }
+                        ]
+                    }).addTo(currentFeatureGroup);
+                }
+
+                //unbind all events
+                window.UnbindTheCustomControls = function () {
+                    map.off('click', fencePlace1);
+                    map.off('click', fencePlace3);
+                    map.off('click', fencePlace2);
+                    map.off('click', gatePlace2);
+                    map.off('click', wallPlace);
+                }
+
+                //draw controls
+                function showPolygonAreaEdited(e) {
+                    UnbindTheCustomControls();
+                    e.layers.eachLayer(function (layer) {
+                        showPolygonArea({ layer: layer });
+                    });
+                }
+
+                var userInputCustom;
+                function showPolygonArea(e) {
+                    userInputCustom = prompt("Please enter image name");
+                    currentFeatureGroup.addLayer(e.layer);
+                    userInputCustom = 'BetaImages/' + userInputCustom + ".jpg";
+                    myFunc(userInputCustom);
+                    e.layer.bindPopup("<div style='width:200px;height:200px;background-image: url(" + userInputCustom + ");background-size: 195px 195px;;background-repeat: no-repeat;'></div>");
+                    }
+                //dynamic layers
+                var userInputName;
+                var ssss;
+                window.myFunc = function (ff) {
+                    //Second layergroup not added to the map yet
+                    userInputName = prompt("Please enter new layer name");
+                    //var userInputUrl = prompt("Please enter image url");
+                    var userInputUrl = ff;
+                    ssss = userInputName.toString();
+                    userInputName = new L.LayerGroup();
+
+                    var imageOverlayUrl2 = userInputUrl,
+                    // New imageoverlay added to the second layergroup
+                    imageOverlay2 = new L.imageOverlay(imageOverlayUrl2, bounds).addTo(userInputName),
+                    // New featuregroup added to the second layergroup
+                    featureGroup2 = new L.FeatureGroup().addTo(userInputName);
+
+                    layerControl.addBaseLayer(userInputName, ssss);
+                }
+
+                $('#removeLayer').click(function (e) { UnbindTheCustomControls(); });
+            });
+            return this;
+        });
+    </script>
+</body>
+</html>

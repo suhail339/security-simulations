@@ -1,0 +1,16 @@
+
+.leaflet-control-nanomeasure-coordinates {
+    background-image: url(../img/measure-coordinates-2x.png);
+}
+
+.leaflet-control-nanomeasure-distance {
+    background-image: url(../img/measure-distance-2x.png);
+}
+
+.leaflet-control-nanomeasure-area {
+    background-image: url(../img/measure-area-2x.png);
+}
+
+.leaflet-control-nanomeasure.enabled:hover {
+    background-color: #ffd0d0;
+}
